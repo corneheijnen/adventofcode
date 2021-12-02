@@ -8,7 +8,7 @@ outcome = depths['increase'].sum()
 
 
 # And now as one-liner
-outcome = (pd.read_csv('day1/input.txt').diff() > 0).sum()
+outcome = int((pd.read_csv('day1/input.txt', header=None).diff() > 0).sum())
 
 
 # Part 2
