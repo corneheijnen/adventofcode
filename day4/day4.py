@@ -13,7 +13,7 @@ with open('day4/input.txt') as file:
             continue
         line = line.replace('  ', ' ')
         temp = line.strip().split(' ')
-        print(temp)
+        # print(temp)
         cards_df = cards_df.append(dict(zip(columns, temp)), ignore_index=True)
         if row == 5:
             cards_dict[cards_counter] = cards_df
@@ -24,8 +24,8 @@ with open('day4/input.txt') as file:
 
 def get_outcome(number_sequence, cards_dict):
     for number in number_sequence:
-        print(number)
-        print(f"Checking {number} in all bingo cards")
+        # print(number)
+        # print(f"Checking {number} in all bingo cards")
 
         for key, values in cards_dict.items():
             cards_dict[key] = values.replace(str(number), -1)
@@ -34,9 +34,38 @@ def get_outcome(number_sequence, cards_dict):
                 print(cards_dict[key])
                 return cards_dict[key], number
 
+#
+# frame, number = get_outcome(number_sequence, cards_dict)
+# sum = frame.replace(-1, 0)
+# for column in sum.columns:
+#     sum[column] = sum[column].astype(int)
+#
+# answer = sum.sum().sum() * int(number)
 
-frame, number = get_outcome(number_sequence, cards_dict)
-sum = frame.replace(-1, 0)
+
+# Part 2
+def get_outcome2(number_sequence, cards_dict):
+
+    bingos = set()
+    for number in number_sequence[:-10]:
+        print(number)
+        print(f"Checking {number} in all bingo cards")
+
+        for key, values in cards_dict.items():
+            values = values.astype(int)
+            cards_dict[key] = values.replace(int(number), -1)
+            if (cards_dict[key].sum() == - 5).any() or (cards_dict[key].sum(axis=1) == - 5).any():
+                print(f"{key} has bingo, will delete")
+                bingos.add(key)
+
+                if len(bingos) == 100:
+                    return cards_dict[key], number
+                else:
+                    pass
+
+
+bingo_card, number = get_outcome2(number_sequence, cards_dict)
+sum = bingo_card.replace(-1, 0)
 for column in sum.columns:
     sum[column] = sum[column].astype(int)
 
