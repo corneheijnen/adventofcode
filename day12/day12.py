@@ -9,17 +9,10 @@ graph = nx.Graph()
 graph.add_edges_from(edges_list)
 
 # Draw graph for visibility/explainability
-# nx.draw(graph, with_labels=True, font_weight='bold')
-
-# create starting variables
-routes = []
-starting_point = 'start'
-end_point = 'end'
-visited_points = [starting_point]
-neighbours = list(nx.neighbors(graph, starting_point))
-
+nx.draw(graph, with_labels=True, font_weight='bold')
 
 class Path:
+    """ Path travelled from starting point to location"""
     def __init__(self, starting_point, target, path, visited, small_cave_visited_twice):
         self.location = starting_point
         self.target = target
