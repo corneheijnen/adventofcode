@@ -10,7 +10,7 @@ with open('2022/day1/input.txt') as file:
             elf_calorie_list.append(calories_current_elf)  # add to list once done
             calories_current_elf = 0  # put back to 0 again
         else:
-            calories_current_elf += int(line)
+            calories_current_elf += int(line)  # add calories to running sum
 
 print(sorted(elf_calorie_list)[-1])  # answer part 1
 print(sum(sorted(elf_calorie_list)[-3:]))  # answer part 2
